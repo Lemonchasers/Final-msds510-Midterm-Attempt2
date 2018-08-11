@@ -1,21 +1,13 @@
 import sys
-import csv
+from msds510 import util
 
+"""The make_report.py fie has a main function. This function takes two arguments. 
+The first is a csv file. The second is the location of the resulting mark down report.
+The markdown report should include the top 10 avengers and some data about them."""
 
-input1 = sys.argv[1]
-output2 = sys.argv[2]
-
-#def toMarkdown(x):
-#        newTemp = "#"+x['name_alias']+"\n"
-#        newTemp +="*Number of Appearances: "+x['appearances']+"\n"
-#        newTemp +="*Year Joined: "+x['year']+"\n"
-#        newTemp +="*Years Since Joining: "+x['years_since_joining']+"\n"
-#        newTemp +="*Url: "+x['url']+"\n"
-#       newTemp +="##Notes: "+x['url']+"\n"
-#        return newTemp
 
 def main(input1,output2):
-    with open(input1,'r') as c:
+    with open(input1, 'r') as c:
         lines = c.readlines()
 
     rows = []
@@ -30,7 +22,7 @@ def main(input1,output2):
     for name in header:
         lower = name.lower()
         strip = lower.strip('\n').strip('?')
-        rep = strip.replace('/','_').replace(' ','_')
+        rep = strip.replace('/', '_').replace(' ', '_')
         fieldnames.append(rep)
 
     #3
@@ -38,7 +30,7 @@ def main(input1,output2):
 
     for row in rows:
         dictionary = {}
-        for field,value in zip(fieldnames,row):
+        for field,value in zip(fieldnames, row):
             dictionary[field] = value
 
         records.append(dictionary)
@@ -67,8 +59,7 @@ def main(input1,output2):
             else:
                 record[key] = value.strip()
 
-
-    newlist = sorted(records, key=lambda k: k['appearances'],reverse=True)
+    newlist = sorted(records, key=lambda k: k['appearances'], reverse=True)
     newlist[0:10]
 
     for record in newlist:
@@ -186,27 +177,9 @@ def main(input1,output2):
     newTemp +=newlist[9]['url']+"\n"
     newTemp +="\n"
 
-    #for x in newlist:
-    #    i = i+1
-    #    print("# ",i,". ",x['name_alias'])
-    #    print("*Number of Appearances: ", x['appearances'])
-    #    print("*Year Joined: ", x['year'])
-    #    print("*Years Since Joining: ", x['years_since_joining'])
-    #    print("*Url: ", x['url'])
-    #   print()
-    #   print("##Notes: ", x['url'])
-    #    print()
-
-    #writeoutpart
-
-    #for x in newlist:
-
     with open(output2, 'w') as output:
         output.write(newTemp)
 
 
-
-
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])
-

@@ -1,10 +1,8 @@
-# 4d
+from msds510 import util
 
-
-import sys
-import util
-sys.path.insert(0, '/Users/lemonswilliams/'
-                   'Documents/DSC 510/Week 6/msds510/src/msds510/')
+"""The test_util_module.py file imports all functions from the file util.py
+in the subfolder msds510. More specifically we then use the get_date_joined function
+and the days_since_joined function."""
 
 records = [
                 dict(year='1988', intro='Jun-88'),

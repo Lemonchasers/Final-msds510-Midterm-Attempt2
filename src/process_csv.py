@@ -1,12 +1,12 @@
 import sys
-
-
-sys.path.insert(0, '/Users/lemonswilliams/Documents/DSC 510/Midterm/msds510/src/msds510/')
-import util
-
 import csv
-input1 = sys.argv[1]
-output2 = sys.argv[2]
+
+""" The process_csv.py file consists of a main function that requires two arguments
+The first argument is the file path for an input csv file. The second argument is 
+the file path for the results of processing the input csv file.
+The main function provides python friendly header names for the columns.
+"""
+
 
 def main(input1,output2):
     with open(input1,'rb') as a:
@@ -14,6 +14,7 @@ def main(input1,output2):
 
     avengers_decoded = avengers.decode('iso-8859-1')
     avengers_encoded = avengers_decoded.encode('utf8')
+
     tempinput = "/Users/lemonswilliams/Documents/DSC 510/Midterm/msds510/data/interim/avengers_utf8.csv"
 
     with open(tempinput, 'wb') as b:
@@ -27,7 +28,6 @@ def main(input1,output2):
         row = x.split(',')
         if len(row) == 21:
             rows.append(row)
-    #2
     header = rows[0]
     fieldnames = []
 
@@ -37,7 +37,6 @@ def main(input1,output2):
         rep = strip.replace('/','_').replace(' ','_')
         fieldnames.append(rep)
 
-    #3
     records = []
 
     for row in rows:
@@ -46,19 +45,16 @@ def main(input1,output2):
             dictionary[field] = value
 
         records.append(dictionary)
-    records = records[1::]
 
-    #for x in records:
-    #   x['month_joined'] = util.get_month(x['full_reserve_avengers_intro'])
-
-    #writeoutpart
     with open(output2, "w") as csvfile:
-        fieldnames = ['url', 'name_alias', 'appearances', 'current', 'gender', 'probationary_introl', 'full_reserve_avengers_intro', 'year', 'years_since_joining', 'honorary', 'death1', 'return1', 'death2', 'return2', 'death3', 'return3', 'death4', 'return4', 'death5', 'return5', 'notes']
+        fieldnames = records[0]
+        records = records[1:]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
         for roww in records:
             writer.writerow(roww)
+
 
 if __name__ == '__main__':
     main(sys.argv[1],sys.argv[2])

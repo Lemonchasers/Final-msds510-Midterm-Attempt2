@@ -1,14 +1,13 @@
-# 3c
-
 import sys
 import csv
 
+"""The write_csv.py file consists of one function write_csv.
+The purpose of the function is to take two arguments. The first argument
+is the file path for a a csv file that you wish to process like the raw avengers data set.
+Then the  second argument is the file location of the processed csv file for argument 1."""
 
-input1 = sys.argv[1]
-output2 = sys.argv[2]
 
-
-def main(input1, output2):
+def write_csv(input1, output2):
     with open(input1, 'r') as c:
         lines = c.readlines()
 
@@ -39,11 +38,8 @@ def main(input1, output2):
 
     # write out part
     with open(output2, "w") as csvfile:
-        fieldnames = ['url', 'name_alias', 'appearances', 'current', 'gender',
-                      'probationary_introl', 'full_reserve_avengers_intro',
-                      'year', 'years_since_joining', 'honorary', 'death1',
-                      'return1', 'death2', 'return2', 'death3', 'return3',
-                      'death4', 'return4', 'death5', 'return5', 'notes']
+        fieldnames = records[0]
+        records = records[1:]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -52,4 +48,4 @@ def main(input1, output2):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+    write_csv(sys.argv[1], sys.argv[2])

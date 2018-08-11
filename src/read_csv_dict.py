@@ -1,39 +1,20 @@
-# 3b
+import csv
 import sys
 
-input1 = sys.argv[1]
 
-
-def main(input1):
-    with open(input1, 'r') as c:
-        lines = c.readlines()
-
-    rows = []
-    for x in lines:
-        row = x.split(',')
-        if len(row) == 21:
-            rows.append(row)
-    # 2
-    header = rows[0]
-    fieldnames = []
-
-    for name in header:
-        lower = name.lower()
-        strip = lower.strip('\n').strip('?')
-        rep = strip.replace('/', '_').replace(' ', '_')
-        fieldnames.append(rep)
-
-    # 3
+def read_csv_dict(input1):
+    """The read_csv_dict function within this file takes a csv and reads it into a list of dictionaries.
+    Then it prints the 161st record."""
+    c = open(input1)
+    csv_c = csv.DictReader(c)
     records = []
 
-    for row in rows:
-        dictionary = {}
-        for field, value in zip(fieldnames, row):
-            dictionary[field] = value
+    for record in csv_c:
+        records.append(record)
 
-        records.append(dictionary)
-    print(records[161])
+    print(records[160])
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    read_csv_dict(sys.argv[1])
+
